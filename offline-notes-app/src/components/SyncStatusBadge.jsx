@@ -3,35 +3,45 @@ import React from "react";
 
 export default function SyncStatusBadge({ syncing, error, synced }) {
   let statusText = "";
-  let color = "gray";
+  let background = "linear-gradient(to right, #999, #aaa)";
+  let emoji = "📄";
 
   if (error) {
     statusText = "Error syncing";
-    color = "red";
+    background = "linear-gradient(to right, #d72638, #ff5e5b)";
+    emoji = "⚠️";
   } else if (syncing) {
     statusText = "Syncing...";
-    color = "orange";
+    background = "linear-gradient(to right, #f9a825, #fbc02d)";
+    emoji = "🔄";
   } else if (synced) {
     statusText = "Synced";
-    color = "green";
+    background = "linear-gradient(to right, #4caf50, #81c784)";
+    emoji = "✅";
   } else {
     statusText = "Unsynced";
-    color = "gray";
+    background = "linear-gradient(to right, #757575, #9e9e9e)";
+    emoji = "📄";
   }
 
   return (
     <span
       style={{
-        padding: "0.25rem 0.5rem",
-        borderRadius: "0.25rem",
-        backgroundColor: color,
+        padding: "0.4rem 0.8rem",
+        borderRadius: "20px",
+        background,
         color: "white",
-        fontSize: "0.75rem",
+        fontSize: "0.8rem",
         fontWeight: "600",
+        backdropFilter: "blur(6px)",
+        boxShadow: "0 0 8px rgba(0,0,0,0.2)",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.5rem",
       }}
       title={statusText}
     >
-      {statusText}
+      <span>{emoji}</span> {statusText}
     </span>
   );
 }

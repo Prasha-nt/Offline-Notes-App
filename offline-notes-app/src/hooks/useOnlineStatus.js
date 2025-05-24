@@ -1,23 +1,17 @@
-// src/hooks/useOnlineStatus.js
 import { useState, useEffect } from "react";
 
 export default function useOnlineStatus() {
   const [online, setOnline] = useState(navigator.onLine);
 
   useEffect(() => {
-    function handleOnline() {
-      setOnline(true);
-    }
-    function handleOffline() {
-      setOnline(false);
-    }
+    const updateOnlineStatus = () => setOnline(navigator.onLine);
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
 
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener("online", updateOnlineStatus);
+      window.removeEventListener("offline", updateOnlineStatus);
     };
   }, []);
 
